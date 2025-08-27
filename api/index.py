@@ -1,7 +1,5 @@
-# api/index.py
 from fastapi import FastAPI, Form
 from fastapi.responses import HTMLResponse
-from typing import List
 import re
 
 app = FastAPI()
@@ -107,7 +105,7 @@ async def submit(
         detail["q2"] = "Salah"
 
     # Q3
-    if q3.replace(" ", "") in ["ابتث", "ا ب ت ث".replace(" ", "")]:
+    if q3.replace(" ", "") in ["ابتث"]:
         score += 1
         detail["q3"] = "Benar"
     else:
@@ -127,7 +125,7 @@ async def submit(
     else:
         detail["q5"] = "Salah"
 
-    # Q6 (open, asal menyebut semua kelompok)
+    # Q6
     if all(k in q6 for k in ["ب", "ت", "ث", "ج", "ح", "خ", "د", "ذ", "س", "ش"]):
         score += 1
         detail["q6"] = "Benar"
@@ -148,7 +146,7 @@ async def submit(
     else:
         detail["q8"] = "Salah"
 
-    # Q9 (minimal 5 huruf tanpa titik)
+    # Q9
     ans9 = set(q9.replace(" ", ""))
     if len(ans9 & NO_DOT) >= 5:
         score += 1
@@ -156,7 +154,7 @@ async def submit(
     else:
         detail["q9"] = "Salah"
 
-    # Q10 (huruf titik bawah)
+    # Q10
     ans10 = set(q10.replace(" ", ""))
     if DOT_BELOW.issubset(ans10):
         score += 1
