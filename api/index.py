@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Form
+From fastapi import FastAPI, Form
 from fastapi.responses import HTMLResponse
 import re
 
@@ -18,7 +18,7 @@ def strip_diacritics(text: str) -> str:
 # --------------------------------------------
 # Routes
 # --------------------------------------------
-@app.get("/", response_class=HTMLResponse)
+@app.get("/api/index", response_class=HTMLResponse)
 async def home():
     html = """
     <html>
@@ -73,7 +73,7 @@ async def home():
     """
     return HTMLResponse(content=html)
 
-@app.post("/submit", response_class=HTMLResponse)
+@app.post("/api/index/submit", response_class=HTMLResponse)
 async def submit(
     q1: str = Form(""),
     q2: str = Form(""),
@@ -126,7 +126,7 @@ async def submit(
         detail["q5"] = "Salah"
 
     # Q6
-    if all(k in q6 for k in ["ب", "ت", "ث", "ج", "ح", "خ", "د", "ذ", "س", "ش"]):
+    if all(k in q6 for k in ["ب", "ت", "ث", "ج", "ح", "خ", "d", "ذ", "س", "ش"]):
         score += 1
         detail["q6"] = "Benar"
     else:
@@ -140,7 +140,7 @@ async def submit(
         detail["q7"] = "Salah"
 
     # Q8
-    if all(h in q8 for h in ["ق", "ل", "م"]):
+    if all(h in q8 for h in ["ق", "l", "m"]):
         score += 1
         detail["q8"] = "Benar"
     else:
@@ -177,3 +177,4 @@ async def submit(
     </html>
     """
     return HTMLResponse(content=html)
+    
